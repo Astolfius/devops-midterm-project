@@ -2,8 +2,8 @@ node_modules/
 coverage/
 .env
 .vercel
-production/releases/
-production/current/
+production/
+logs/*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
