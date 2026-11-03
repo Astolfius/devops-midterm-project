@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Midterm Project - Live Application</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #10b981;
+      --border: #334155;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .stat-value {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: #334155;
+      margin-left: 10px;
+    }
+    .btn-secondary:hover { background: #475569; }
+    .calc-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+    input {
+      padding: 10px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #0f172a;
+      color: white;
+      font-size: 1rem;
+      flex: 1;
+      min-width: 120px;
+    }
+    .calc-result {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--accent);
+      font-weight: 600;
+      display: none;
+    }
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">🚀 CI/CD Pipeline Deployed</div>
+      <h1>DevOps Automated Production Service</h1>
+      <p class="subtitle">3-საფეხურიანი ავტომატიზებული CI/CD პაიპლაინით გაშვებული აპლიკაცია</p>
+    </header>
+
+    <div class="grid">
+      <div class="stat-box">
+        <div class="stat-label">სტატუსი</div>
+        <div class="stat-value" id="status-val" style="color: #10b981;">შემოწმება...</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">გარემო / სლოტი</div>
+        <div class="stat-value" id="slot-val">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">აპლიკაციის ვერსია</div>
+        <div class="stat-value" id="ver-val">-</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Uptime</div>
+        <div class="stat-value" id="uptime-val">-</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🧮 ფუნქციური კომპონენტი (API ტესტი)</h2>
+      <p style="color: var(--text-muted); margin-top: 6px;">
+        ეს ფორმა აგზავნის მოთხოვნას <code>POST /api/calculate</code> ენდფოინთზე, რომლის ლოგიკაც სრულად იტესტება CI/CD ტესტების ეტაპზე.
+      </p>
+      <form class="calc-form" id="calcForm">
+        <input type="number" id="numA" placeholder="რიცხვი A" required value="25">
+        <span style="font-size: 1.5rem; line-height: 40px;">+</span>
+        <input type="number" id="numB" placeholder="რიცხვი B" required value="17">
+        <button type="submit" class="btn">გამოთვლა</button>
+      </form>
+      <div class="calc-result" id="calcResult"></div>
+    </div>
+
+    <div class="card" style="text-align: center;">
+      <h2>📊 მონიტორინგი და დიაგნოსტიკა</h2>
+      <p style="color: var(--text-muted); margin: 10px 0 20px 0;">
+        შეამოწმეთ ცოცხალი Health Check ენდფოინთი ან გადადით ვიზუალურ Monitoring Dashboard-ზე.
+      </p>
+      <a href="/health" target="_blank" class="btn">🩺 Health Check (/health)</a>
+      <a href="/status" class="btn btn-secondary">📈 Status Dashboard (/status)</a>
+    </div>
+
+    <footer>
+      DevOps Midterm Project • Git Branches: <code>main</code> & <code>dev</code> • GitHub Actions CI/CD
+    </footer>
+  </div>
+
+  <script>
+    async function loadInfo() {
+      try {
+        const res = await fetch('/health');
+        const data = await res.json();
+        document.getElementById('status-val').innerText = data.status === 'UP' ? 'ONLINE (UP)' : data.status;
+        document.getElementById('slot-val').innerText = `${data.environment} [${data.slot}]`;
+        document.getElementById('ver-val').innerText = `v${data.version}`;
+        document.getElementById('uptime-val').innerText = `${data.uptime} წამი`;
+      } catch (e) {
+        document.getElementById('status-val').innerText = 'OFFLINE';
+        document.getElementById('status-val').style.color = '#ef4444';
+      }
+    }
+
+    document.getElementById('calcForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const a = Number(document.getElementById('numA').value);
+      const b = Number(document.getElementById('numB').value);
+      try {
+        const res = await fetch('/api/calculate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ a, b })
+        });
+        const data = await res.json();
+        const resEl = document.getElementById('calcResult');
+        resEl.style.display = 'block';
+        resEl.innerText = `პასუხი: ${a} + ${b} = ${data.result}`;
+      } catch (err) {
+        alert('შეცდომა გამოთვლისას');
+      }
+    });
+
+    loadInfo();
+    setInterval(loadInfo, 5000);
+  </script>
+</body>
+</html>

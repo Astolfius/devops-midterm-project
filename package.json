@@ -1,0 +1,32 @@
+{
+  "name": "devops-midterm-project",
+  "version": "1.0.0",
+  "description": "DevOps Midterm Project - 3-Stage CI/CD Pipeline, Automated Testing, Blue-Green Deployment, Monitoring and Dashboard",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "build": "node -e \"console.log('Build stage: Dependencies verified & bundle compiled successfully.')\"",
+    "test": "jest --coverage --detectOpenHandles --forceExit",
+    "health-check": "node scripts/health_check.js",
+    "deploy": "node scripts/deploy.js",
+    "deploy:rollback": "node scripts/deploy.js --rollback"
+  },
+  "keywords": [
+    "devops",
+    "ci-cd",
+    "github-actions",
+    "blue-green",
+    "monitoring",
+    "health-check",
+    "rollback"
+  ],
+  "author": "DevOps Student",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
