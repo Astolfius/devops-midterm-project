@@ -1,0 +1,135 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  # ==========================================
+  # STAGE 1: BUILD (გარემოს მომზადება & ბილდი)
+  # ==========================================
+  build:
+    name: 1. Build & Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Build & Integrity Check
+        run: npm run build
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build
+          path: |
+            src/
+            public/
+            scripts/
+            package*.json
+          retention-days: 1
+
+  # ==========================================
+  # STAGE 2: TEST (ავტომატური ტესტირება)
+  # ==========================================
+  test:
+    name: 2. Automated Unit Tests
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Execute Automated Unit Tests & Coverage
+        run: npm test
+
+      - name: Upload Test Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 3
+
+  # ==========================================
+  # STAGE 3: DEPLOY (ავტომატური დეფლოიმენტი & როლბექი)
+  # ==========================================
+  deploy:
+    name: 3. Production Deployment & Verification
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Execute Blue-Green Deployment & Verification
+        run: |
+          echo "Starting automated deployment to production environment..."
+          npm run deploy
+
+      - name: Verify Live Production Health Check & Monitoring
+        run: |
+          echo "Starting production service in background for health verification..."
+          PORT=3000 node production/current/src/server.js &
+          SERVER_PID=$!
+          sleep 2
+
+          echo "Running health check script..."
+          node scripts/health_check.js --url=http://localhost:3000
+
+          echo "Checking recent monitoring logs..."
+          cat logs/health_check.log
+
+          echo "Stopping verification process..."
+          kill $SERVER_PID
+
+      - name: Upload Deployment & Health Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-logs
+          path: logs/
+          retention-days: 7
+
+      # (Optional) Cloud Deployment to Vercel (if VERCEL_TOKEN secret is present)
+      - name: Deploy to Vercel (Optional Cloud Mode)
+        if: env.VERCEL_TOKEN != ''
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
