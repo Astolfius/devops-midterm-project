@@ -5,6 +5,11 @@
 [![Coverage](https://img.shields.io/badge/Coverage-100%25-success)](tests/)
 [![Deployment](https://img.shields.io/badge/Deployment-Blue--Green%20%2B%20Vercel-orange)](production/)
 [![Monitoring](https://img.shields.io/badge/Monitoring-Live%20Health%20Check-emerald)](scripts/health_check.js)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Production-black?logo=vercel)](https://devops-midterm-project-three.vercel.app)
+
+> 🌐 **ცოცხალი საჯარო Vercel აპლიკაცია**: [https://devops-midterm-project-three.vercel.app](https://devops-midterm-project-three.vercel.app)  
+> 🩺 **Live JSON Health Check**: [https://devops-midterm-project-three.vercel.app/health](https://devops-midterm-project-three.vercel.app/health)  
+> 📊 **Live Monitoring Dashboard**: [https://devops-midterm-project-three.vercel.app/status](https://devops-midterm-project-three.vercel.app/status)  
 
 ---
 
@@ -16,7 +21,7 @@
 - **ავტომატურ იუნიტ და ინტეგრაციულ ტესტირებას**: Jest & Supertest ფრეიმვორკებით (18 ტესტი, 100% ბიზნეს ლოგიკის დაფარვა).
 - **დეპლოიმენტის სტრატეგიას**:
   - **გზა ა (ლოკალური / Server)**: Blue-Green საქაღალდეების როტაცია (`production/releases/blue` და `production/releases/green`) ნულოვანი დაუნთაიმით.
-  - **გზა ბ (ქლაუდი)**: Vercel-ისთვის ოპტიმიზებული სერვერლეს არქიტექტურა (`vercel.json` & `api/index.js`).
+  - **გზა ბ (ქლაუდი)**: Vercel-ისთვის ოპტიმიზებული სერვერლეს არქიტექტურა (`vercel.json` & `api/index.js`), რომელიც ცოცხლად გაშვებულია [devops-midterm-project-three.vercel.app](https://devops-midterm-project-three.vercel.app)-ზე.
 - **მონიტორინგსა და Health Check-ს**: ავტომატურ სკრიპტს დიაგნოსტიკისთვის და შედეგების ლოგირებას (`logs/health_check.log`).
 - **🌟 ბონუს კომპონენტებს**:
   - **ვიზუალური მონიტორინგის დეშბორდი** (`/status` - Live Status Display).
@@ -26,7 +31,7 @@
 - **Backend / API**: Node.js, Express.js
 - **Testing**: Jest, Supertest
 - **CI/CD Automation**: GitHub Actions (`.github/workflows/ci-cd.yml`)
-- **Deployment Strategy**: Blue-Green Deployment Folder Rotation & Zero-Downtime Switcher
+- **Deployment Strategy**: Blue-Green Deployment Folder Rotation & Vercel Cloud Serverless
 - **Monitoring & Health**: Custom Monitoring Daemon (`scripts/health_check.js`)
 - **Dashboard UI**: HTML5, Modern CSS, Responsive Real-Time Fetch API
 
@@ -120,20 +125,26 @@ flowchart TD
 
 ---
 
-### 📸 სქრინშოტი 3: მომუშავე აპლიკაცია & ვიზუალური Monitoring Dashboard
+### 📸 სქრინშოტი 3: მომუშავე აპლიკაცია Vercel Cloud-ზე (/health Endpoint)
+![Live Vercel Health Check](docs/images/vercel_health.png)
+*კომენტარი: Vercel-ზე დადეპლოილი ცოცხალი აპლიკაციის `/health` ენდფოინთი (`devops-midterm-project-three.vercel.app/health`). ჩანს სისტემის ჯანმრთელობის JSON პასუხი (status: "UP", გარემო: "production", მეხსიერების გამოყენება და Uptime).*
+
+---
+
+### 📸 სქრინშოტი 4: ვიზუალური Monitoring Dashboard
 ![Live Application & Status Dashboard](docs/images/live_app.svg)
-*კომენტარი: გაშვებული აპლიკაციის ვიზუალური მონიტორინგის დეშბორდი (`/status`). ნაჩვენებია ცოცხალი ჯანმრთელობის სტატუსი (UP), აქტიური Blue-Green სლოტი, საპასუხო დრო (Latency: 24ms), მეხსიერების მოხმარება და `logs/health_check.log`-ის ცოცხალი ჩანაწერები.*
+*კომენტარი: აპლიკაციის ვიზუალური მონიტორინგის დეშბორდი (`/status`). ნაჩვენებია ცოცხალი ჯანმრთელობის სტატუსი (UP), აქტიური Blue-Green სლოტი, საპასუხო დრო (Latency: 24ms), მეხსიერების მოხმარება და `logs/health_check.log`-ის ცოცხალი ჩანაწერები.*
 
 ---
 
 ## 🌟 5. არასავალდებულო ბონუსები (Bonus Features)
 
 ### 1️⃣ ბონუსი: ვიზუალური მონიტორინგის დეშბორდი (Status Display Dashboard)
-- მისამართი: `http://localhost:3000/status` (ან Vercel ლინკზე `/status`).
+- მისამართი: `https://devops-midterm-project-three.vercel.app/status` (ან ლოკალურად `http://localhost:3000/status`).
 - **შესაძლებლობები**:
   - **Live Status Indicator**: მწვანე პულსირებადი ინდიკატორი რეალურ დროში.
   - **Real-Time Metrices**: Uptime წამებში/წუთებში, Latency მილიწამებში, Node.js Memory RSS.
-  - **Live Log Feed**: კითხულობს `logs/health_check.log` ფაილის უახლეს ჩანაწერებს API ენდფოინთიდან (`/api/logs`) და აჩვენებს ცხრილში ავტო-განახლებით (Auto-refresh ყოველ 4 წამში).
+  - **Live Log Feed**: კითხულობს მონიტორინგის უახლეს ჩანაწერებს API ენდფოინთიდან (`/api/logs`) და აჩვენებს ცხრილში ავტო-განახლებით (Auto-refresh ყოველ 4 წამში).
 
 ### 2️⃣ ბონუსი: ავტომატიზებული Rollback მექანიზმი
 - სკრიპტი: `scripts/deploy.js` & `npm run deploy:rollback`.
@@ -178,8 +189,8 @@ Commit შეტყობინებები სტრუქტურირე
 
 ### 1. რეპოზიტორიის კლონირება
 ```bash
-git clone <თქვენი-რეპოზიტორიის-ლინკი>
-cd teststs
+git clone https://github.com/Astolfius/devops-midterm-project.git
+cd devops-midterm-project
 ```
 
 ### 2. დამოკიდებულებების ინსტალაცია
@@ -230,6 +241,7 @@ npm run deploy:rollback
 ---
 
 ## 🏆 პროექტის ჩაბარების ინფორმაცია (Deliverables)
-- **რეპოზიტორია**: GitHub საჯარო რეპოზიტორია.
+- **რეპოზიტორია**: [https://github.com/Astolfius/devops-midterm-project](https://github.com/Astolfius/devops-midterm-project)
+- **ცოცხალი Vercel აპლიკაცია**: [https://devops-midterm-project-three.vercel.app](https://devops-midterm-project-three.vercel.app)
 - **ბრენჩები**: `main` და `dev`.
 - **სრული დოკუმენტაცია**: მოცემული `README.md` ფაილი სქრინშოტებით, დიაგრამით და ბონუს ფუნქციონალით.
