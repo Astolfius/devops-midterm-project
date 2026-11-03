@@ -105,7 +105,7 @@ jobs:
           echo "Starting production service in background for health verification..."
           PORT=3000 node production/current/src/server.js &
           SERVER_PID=$!
-          sleep 2
+          sleep 3
 
           echo "Running health check script..."
           node scripts/health_check.js --url=http://localhost:3000
@@ -114,7 +114,7 @@ jobs:
           cat logs/health_check.log
 
           echo "Stopping verification process..."
-          kill $SERVER_PID
+          kill $SERVER_PID || true
 
       - name: Upload Deployment & Health Logs
         if: always()
@@ -126,7 +126,7 @@ jobs:
 
       # (Optional) Cloud Deployment to Vercel (if VERCEL_TOKEN secret is present)
       - name: Deploy to Vercel (Optional Cloud Mode)
-        if: env.VERCEL_TOKEN != ''
+        if: ${{ secrets.VERCEL_TOKEN != '' }}
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

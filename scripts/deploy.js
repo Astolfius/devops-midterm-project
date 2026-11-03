@@ -51,7 +51,7 @@ function copyDirRecursive(src, dest) {
     const srcPath = path.join(src, entry.name);
     const destPath = path.join(dest, entry.name);
 
-    if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === 'production') {
+    if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === 'production' || entry.name === 'coverage') {
       continue;
     }
 
@@ -65,17 +65,23 @@ function copyDirRecursive(src, dest) {
 
 async function startServerForCheck(slotDir, port, slotName) {
   return new Promise((resolve, reject) => {
+    const nodeModulesPath = path.join(ROOT_DIR, 'node_modules');
     const child = spawn(process.execPath, [path.join(slotDir, 'src', 'server.js')], {
-      env: { ...process.env, PORT: port, DEPLOY_SLOT: slotName },
+      env: {
+        ...process.env,
+        PORT: port,
+        DEPLOY_SLOT: slotName,
+        NODE_PATH: nodeModulesPath
+      },
       stdio: 'ignore'
     });
 
     child.on('error', reject);
 
-    // Give it 1 second to start up
+    // Give it 1.5 seconds to start up
     setTimeout(() => {
       resolve(child);
-    }, 1200);
+    }, 1500);
   });
 }
 
