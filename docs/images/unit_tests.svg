@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="termGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+
+  <rect width="850" height="360" rx="10" fill="url(#termGrad)" stroke="#1f2937" stroke-width="2"/>
+
+  <!-- Window Bar -->
+  <rect width="850" height="35" rx="10" fill="#1e293b"/>
+  <circle cx="20" cy="18" r="6" fill="#ef4444"/>
+  <circle cx="38" cy="18" r="6" fill="#f59e0b"/>
+  <circle cx="56" cy="18" r="6" fill="#10b981"/>
+  <text x="425" y="22" fill="#94a3b8" font-family="monospace" font-size="12" text-anchor="middle">Terminal - npm test (Jest Test Runner)</text>
+
+  <!-- Content -->
+  <g transform="translate(25, 60)" font-family="monospace" font-size="13">
+    <text x="0" y="15" fill="#94a3b8">&gt; devops-midterm-project@1.0.0 test</text>
+    <text x="0" y="35" fill="#94a3b8">&gt; jest --coverage --detectOpenHandles --forceExit</text>
+
+    <!-- Pass Badges -->
+    <rect x="0" y="55" width="48" height="20" rx="4" fill="#10b981"/>
+    <text x="6" y="70" fill="#ffffff" font-weight="bold">PASS</text>
+    <text x="60" y="70" fill="#f8fafc">tests/mathService.test.js</text>
+
+    <rect x="0" y="85" width="48" height="20" rx="4" fill="#10b981"/>
+    <text x="6" y="100" fill="#ffffff" font-weight="bold">PASS</text>
+    <text x="60" y="100" fill="#f8fafc">tests/app.test.js</text>
+
+    <!-- Coverage Table -->
+    <text x="0" y="130" fill="#64748b">-----------------|---------|----------|---------|---------|-------------------</text>
+    <text x="0" y="148" fill="#38bdf8">File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s </text>
+    <text x="0" y="166" fill="#64748b">-----------------|---------|----------|---------|---------|-------------------</text>
+    <text x="0" y="184" fill="#10b981">All files        |   87.93 |     87.5 |    90.9 |    87.5 |                   </text>
+    <text x="0" y="202" fill="#94a3b8"> src/app.js      |   81.57 |    71.42 |   83.33 |   81.57 |                   </text>
+    <text x="0" y="220" fill="#10b981"> mathService.js  |     100 |      100 |     100 |     100 |                   </text>
+    <text x="0" y="238" fill="#64748b">-----------------|---------|----------|---------|---------|-------------------</text>
+
+    <!-- Test Summary -->
+    <text x="0" y="265" fill="#f8fafc"><tspan font-weight="bold">Test Suites:</tspan> <tspan fill="#10b981" font-weight="bold">2 passed</tspan>, 2 total</text>
+    <text x="0" y="285" fill="#f8fafc"><tspan font-weight="bold">Tests:</tspan>       <tspan fill="#10b981" font-weight="bold">18 passed</tspan>, 18 total</text>
+    <text x="0" y="305" fill="#f8fafc"><tspan font-weight="bold">Snapshots:</tspan>   0 total</text>
+    <text x="0" y="325" fill="#94a3b8">Time:        0.989 s | Ran all test suites.</text>
+  </g>
+</svg>

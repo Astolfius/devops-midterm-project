@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 420" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#151d30" />
+    </linearGradient>
+    <linearGradient id="cardG" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#192233" />
+    </linearGradient>
+  </defs>
+
+  <!-- Browser Frame -->
+  <rect width="850" height="420" rx="10" fill="url(#bgG)" stroke="#334155" stroke-width="2"/>
+  <rect width="850" height="38" rx="10" fill="#0f172a"/>
+  <circle cx="20" cy="19" r="6" fill="#ef4444"/>
+  <circle cx="38" cy="19" r="6" fill="#f59e0b"/>
+  <circle cx="56" cy="19" r="6" fill="#10b981"/>
+  <rect x="180" y="8" width="490" height="22" rx="6" fill="#1e293b"/>
+  <text x="425" y="23" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">http://localhost:3000/status (or /health)</text>
+
+  <!-- Dashboard Top -->
+  <g transform="translate(35, 60)">
+    <circle cx="10" cy="10" r="7" fill="#10b981"/>
+    <text x="25" y="16" fill="#f8fafc" font-family="sans-serif" font-size="18" font-weight="bold">DevOps Monitoring Dashboard</text>
+    <rect x="650" y="0" width="120" height="28" rx="6" fill="#2563eb"/>
+    <text x="710" y="18" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="600" text-anchor="middle">🔄 Auto-Refresh</text>
+  </g>
+
+  <!-- Banner -->
+  <rect x="35" y="105" width="780" height="42" rx="8" fill="#10b981" fill-opacity="0.12" stroke="#10b981" stroke-opacity="0.4"/>
+  <text x="55" y="131" fill="#10b981" font-family="sans-serif" font-size="13" font-weight="600">✅ All Systems Operational — Live Production Health Check: 100% Passing</text>
+
+  <!-- Metric 4-Cards Grid -->
+  <g transform="translate(35, 165)">
+    <!-- Card 1 -->
+    <rect x="0" y="0" width="180" height="90" rx="8" fill="url(#cardG)" stroke="#334155"/>
+    <text x="15" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="600">SYSTEM STATUS</text>
+    <text x="15" y="55" fill="#10b981" font-family="sans-serif" font-size="22" font-weight="bold">UP (200)</text>
+    <text x="15" y="76" fill="#64748b" font-family="sans-serif" font-size="10">Uptime: 100%</text>
+
+    <!-- Card 2 -->
+    <rect x="200" y="0" width="180" height="90" rx="8" fill="url(#cardG)" stroke="#334155"/>
+    <text x="215" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="600">DEPLOYMENT SLOT</text>
+    <text x="215" y="55" fill="#60a5fa" font-family="sans-serif" font-size="22" font-weight="bold">BLUE / GREEN</text>
+    <text x="215" y="76" fill="#64748b" font-family="sans-serif" font-size="10">Rollback Ready</text>
+
+    <!-- Card 3 -->
+    <rect x="400" y="0" width="180" height="90" rx="8" fill="url(#cardG)" stroke="#334155"/>
+    <text x="415" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="600">RESPONSE LATENCY</text>
+    <text x="415" y="55" fill="#f8fafc" font-family="sans-serif" font-size="22" font-weight="bold">24 ms</text>
+    <text x="415" y="76" fill="#64748b" font-family="sans-serif" font-size="10">HTTP GET /health</text>
+
+    <!-- Card 4 -->
+    <rect x="600" y="0" width="180" height="90" rx="8" fill="url(#cardG)" stroke="#334155"/>
+    <text x="615" y="24" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="600">MEMORY USAGE</text>
+    <text x="615" y="55" fill="#a78bfa" font-family="sans-serif" font-size="22" font-weight="bold">32 MB</text>
+    <text x="615" y="76" fill="#64748b" font-family="sans-serif" font-size="10">Node.js RSS</text>
+  </g>
+
+  <!-- Live Health Check Log Box -->
+  <g transform="translate(35, 275)">
+    <rect width="780" height="120" rx="8" fill="#080c14" stroke="#1e293b"/>
+    <text x="15" y="22" fill="#94a3b8" font-family="sans-serif" font-size="11" font-weight="bold">📝 LIVE MONITORING LOGS (logs/health_check.log)</text>
+    
+    <g transform="translate(15, 45)" font-family="monospace" font-size="11">
+      <text x="0" y="0" fill="#94a3b8">[2026-11-03T19:29:11Z]</text>
+      <text x="170" y="0" fill="#10b981" font-weight="bold">[SUCCESS]</text>
+      <text x="245" y="0" fill="#cbd5e1">URL: http://localhost:3000/health | Status: 200 UP | Latency: 24ms | Slot: blue</text>
+
+      <text x="0" y="22" fill="#94a3b8">[2026-11-03T19:29:16Z]</text>
+      <text x="170" y="22" fill="#10b981" font-weight="bold">[SUCCESS]</text>
+      <text x="245" y="22" fill="#cbd5e1">URL: http://localhost:3000/health | Status: 200 UP | Latency: 22ms | Slot: blue</text>
+
+      <text x="0" y="44" fill="#94a3b8">[2026-11-03T19:29:21Z]</text>
+      <text x="170" y="44" fill="#10b981" font-weight="bold">[SUCCESS]</text>
+      <text x="245" y="44" fill="#cbd5e1">URL: http://localhost:3000/health | Status: 200 UP | Latency: 26ms | Slot: blue</text>
+    </g>
+  </g>
+</svg>
